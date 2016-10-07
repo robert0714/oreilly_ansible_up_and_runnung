@@ -8,11 +8,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "ubuntu/trusty64"
     ubuntu.vm.network "private_network", ip: "192.168.4.10"
+    ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
   end
 
   config.vm.define "centos" do |centos|
-    centos.vm.box = "chef/centos-6.5"
+    centos.vm.box = "chef/centos-7.2"
     centos.vm.network "private_network", ip: "192.168.4.11"
+    centos.vm.provision "shell", path: "scripts/centos.sh"
   end
 
   config.vm.define "precise" do |precise|
