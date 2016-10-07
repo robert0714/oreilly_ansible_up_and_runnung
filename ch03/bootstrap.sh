@@ -7,7 +7,7 @@ yum -y install ansible
 yum -y install jq
 
 yum -y install epel-release
-yum -y install pip
+yum -y install python-pip 
 
 cp /vagrant/ansible.cfg /etc/ansible/ansible.cfg
 
