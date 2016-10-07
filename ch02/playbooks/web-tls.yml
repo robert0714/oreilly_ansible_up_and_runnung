@@ -1,7 +1,8 @@
 ---
 - name: Configure webserver with nginx and tls
-  hosts: webservers
-  sudo: True
+  hosts: localhost
+  become: yes
+  become_user: root
   vars:
     key_file: /etc/nginx/ssl/nginx.key
     cert_file: /etc/nginx/ssl/nginx.crt
@@ -9,7 +10,7 @@
     server_name: localhost
   tasks:
     - name: Install nginx
-      apt: name=nginx update_cache=yes cache_valid_time=3600
+      yum: name=nginx update_cache=yes
     - name: create directories for TLS certificates
       file: path=/etc/nginx/ssl state=directory
     - name: copy TLS key
