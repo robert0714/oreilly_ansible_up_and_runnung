@@ -14,10 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant2.vm.box = "centos/7"
     vagrant2.vm.network "forwarded_port", guest: 80, host: 8081
     vagrant2.vm.network "forwarded_port", guest: 443, host: 8444
+    vagrant2.vm.provision "shell", path: "bootstrap.sh"
   end
   config.vm.define "vagrant3" do |vagrant3|
     vagrant3.vm.box = "centos/7"
     vagrant3.vm.network "forwarded_port", guest: 80, host: 8082
     vagrant3.vm.network "forwarded_port", guest: 443, host: 8445
+    vagrant3.vm.provision "shell", path: "bootstrap.sh"
   end
 end
