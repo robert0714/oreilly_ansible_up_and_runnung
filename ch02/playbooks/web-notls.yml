@@ -1,10 +1,15 @@
 ---
 - name: Configure webserver with nginx
-  hosts: webservers
-  sudo: True
+  hosts: localhost
+  become: yes
+  become_user: root
   tasks:
     - name: install nginx
-      apt: name=nginx update_cache=yes
+      yum: name=nginx update_cache=yes
+    - name: mkdir sites-available
+      file: path=/etc/nginx/sites-available state=directory mode=0755
+    - name: mkdir sites-enabled
+      file: path=/etc/nginx/sites-enabled state=directory mode=0755
     - name: copy nginx config file
       copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
     - name: enable configuration
@@ -16,3 +21,4 @@
       template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
     - name: restart nginx
       service: name=nginx state=restarted
+
