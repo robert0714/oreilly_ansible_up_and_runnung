@@ -5,20 +5,31 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=700,fmode=600"]
+  else
+    config.vm.synced_folder ".", "/vagrant"
+  end
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "ubuntu/trusty64"
+    ubuntu.vm.hostname = "server1"
     ubuntu.vm.network "private_network", ip: "192.168.4.10"
     ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
+    ubuntu.vm.provision "shell",  inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
   end
 
   config.vm.define "centos" do |centos|
-    centos.vm.box = "chef/centos-7.2"
+    centos.vm.box = "bento/centos-7.2"
+    centos.vm.hostname = "server2"
     centos.vm.network "private_network", ip: "192.168.4.11"
     centos.vm.provision "shell", path: "scripts/centos.sh"
+    centos.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
   end
 
   config.vm.define "precise" do |precise|
-    precise.vm.box = "precise64"
+    precise.vm.box = "hashicorp/precise64"
+    precise.vm.hostname = "server3"
     precise.vm.network "private_network", ip: "192.168.4.12"
+    precise.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
   end
 end
