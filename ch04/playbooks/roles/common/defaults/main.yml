@@ -1,5 +1,5 @@
 manyhosts: [
-  { host_ip: "192.168.4.10", host_name: "server1"},
-  { host_ip: "192.168.4.11", host_name: "server2"},
-  { host_ip: "192.168.4.12", host_name: "server3"},
+  { host_ip: "192.168.4.10", host_name: "ubuntu"},
+  { host_ip: "192.168.4.11", host_name: "centos"},
+  { host_ip: "192.168.4.12", host_name: "precise"},
 ]

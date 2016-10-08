@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "ubuntu/trusty64"
-    ubuntu.vm.hostname = "server1"
+    ubuntu.vm.hostname = "ubuntu"
     ubuntu.vm.network "private_network", ip: "192.168.4.10"
     ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
     ubuntu.vm.provision "shell",  inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "centos" do |centos|
     centos.vm.box = "bento/centos-7.2"
-    centos.vm.hostname = "server2"
+    centos.vm.hostname = "centos"
     centos.vm.network "private_network", ip: "192.168.4.11"
     centos.vm.provision "shell", path: "scripts/centos.sh"
     centos.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/centos.yml -i /vagrant/hosts"
@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "precise" do |precise|
     precise.vm.box = "ubuntu/precise64"
-    precise.vm.hostname = "server3"
+    precise.vm.hostname = "precise"
     precise.vm.network "private_network", ip: "192.168.4.12"
     precise.vm.provision "shell", path: "scripts/precise.sh"
     precise.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
