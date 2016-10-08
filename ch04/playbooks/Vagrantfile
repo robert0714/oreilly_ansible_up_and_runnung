@@ -23,13 +23,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     centos.vm.hostname = "server2"
     centos.vm.network "private_network", ip: "192.168.4.11"
     centos.vm.provision "shell", path: "scripts/centos.sh"
-    centos.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
+    centos.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/centos.yml -i /vagrant/hosts"
   end
 
   config.vm.define "precise" do |precise|
-    precise.vm.box = "hashicorp/precise64"
+    precise.vm.box = "ubuntu/precise64"
     precise.vm.hostname = "server3"
     precise.vm.network "private_network", ip: "192.168.4.12"
+    precise.vm.provision "shell", path: "scripts/precise.sh"
     precise.vm.provision "shell", inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/common.yml -c local"
   end
 end
